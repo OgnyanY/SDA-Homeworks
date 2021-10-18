@@ -21,7 +21,7 @@ void merge(char arr[], char mergeArr[], int start, int mid, int end) {
 }
 
 void mergeSortRecursion(char arr[], char mergeArr[], int start, int end) {
-    //if there is only one element return
+    //if there is only one element - return
     if(start < end) {
         int mid = (start + end) / 2;
 

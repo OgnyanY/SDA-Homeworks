@@ -9,7 +9,7 @@ void merge(int arr[], int mergeArr[], int start, int mid, int end) {
         if(left <= mid && (right > end || arr[left] <= arr[right])){
             mergeArr[i] = arr[left];
             ++left;
-        }else {//this is when the left element is smaller
+        }else {//this is when the right element is smaller
             mergeArr[i] = arr[right];
             ++right;
         }
@@ -21,7 +21,7 @@ void merge(int arr[], int mergeArr[], int start, int mid, int end) {
 }
 
 void mergeSortRecursion(int arr[], int mergeArr[], int start, int end) {
-    //if there is only one element return
+    //if there is only one element - return
     if(start < end) {
         int mid = (start + end) / 2;
 

@@ -30,7 +30,7 @@ void merge(std::vector<std::vector<int>>& arr,
             mergeArr[i] = arr[left];
             ++left;
         }
-        else {//this is when the left element is smaller
+        else {//this is when the right element is smaller
             mergeArr[i] = arr[right];
             ++right;
         }
@@ -43,7 +43,7 @@ void merge(std::vector<std::vector<int>>& arr,
 
 void mergeSortRecursion(std::vector<std::vector<int>>& arr,
                         std::vector<std::vector<int>>& mergeArr, int start, int end) {
-    //if there is only one element return
+    //if there is only one element - return
     if(start < end) {
         int mid = (start + end) / 2;
 
