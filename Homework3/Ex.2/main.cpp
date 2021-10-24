@@ -5,26 +5,32 @@ void merge(std::vector<int>& arr, std::vector<int>& mergeArr, int start, int mid
     int left = start;
     int right = mid + 1;
 
+    //sort the elements
     for(int i = start; i <= end; ++i) {
+        //this is when the left element is smaller
         if(left <= mid && (right > end ||arr[left] <=arr[right])){
             mergeArr[i] = arr[left];
             ++left;
         }
-        else {
+        else {//this is when the right element is smaller
             mergeArr[i] = arr[right];
             ++right;
         }
     }
 
+    //assign the already sorted elements
     for(int i = start; i <= end; ++i) {
         arr[i] = mergeArr[i];
     }
 }
 
 void mergeSortRecursion(std::vector<int>& arr, std::vector<int>& mergeArr, int start, int end) {
+    //if there is only one element - return
     if(start < end) {
         int mid = (start + end) / 2;
 
+        //divide the array by two and continue until there is only two elements in the array
+        //and then merge them
         mergeSortRecursion(arr, mergeArr, start, mid);
         mergeSortRecursion(arr, mergeArr, mid + 1, end);
 
@@ -33,11 +39,12 @@ void mergeSortRecursion(std::vector<int>& arr, std::vector<int>& mergeArr, int s
 }
 
 void mergeSort (std::vector<int>& arr, int length) {
-    std::vector<int> mergeArr(length);
+    std::vector<int> mergeArr(length);//this is the array where we merge
+    //this is the recursive function for merging
     mergeSortRecursion(arr, mergeArr, 0, length - 1);
 }
 
-
+//this is binary search and return two possible elements for theme
 std::vector<int> myBinarySearch(std::vector<int>& arr, int length, int target) {
     int left = 0;
     int right = length - 1;
@@ -67,7 +74,6 @@ std::vector<int> myBinarySearch(std::vector<int>& arr, int length, int target) {
 }
 
 int main() {
-
     int teamsSize = 0;
     int themesSize = 0;
     std::cin >> themesSize >> teamsSize;
@@ -85,23 +91,26 @@ int main() {
         teams.push_back(team);
     }
 
-    mergeSort(themes, themesSize);
+    mergeSort(themes, themesSize);//sort the themes
 
     for(int i = 0; i < teamsSize; ++i) {
         std::vector<int> twoPossible = myBinarySearch(themes, themesSize, teams[i]);
+        //this is if we are found already the theme
         if(twoPossible[1] == -100){
             std::cout << twoPossible[0] << std::endl;
             continue;
         }
+        //this is if the theme is first
         if(twoPossible[0] == teams[i]){
             std::cout << twoPossible[0] << std::endl;
             continue;
         }
+        //this is if the theme is second
         if(twoPossible[1] == teams[i]){
             std::cout << twoPossible[1] << std::endl;
             continue;
         }
-
+        //get the better theme
         if((twoPossible[1] - teams[i]) >= (teams[i] - twoPossible[0])){
             std::cout << twoPossible[0] << std::endl;
             continue;
