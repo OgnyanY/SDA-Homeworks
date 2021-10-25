@@ -45,7 +45,7 @@ void mergeSort (std::vector<int>& arr, int length) {
 }
 
 //this is binary search and return two possible elements for theme
-std::vector<int> myBinarySearch(std::vector<int>& arr, int length, int target) {
+std::vector<int> myBinarySearch(const std::vector<int>& arr, int length, int target) {
     int left = 0;
     int right = length - 1;
     std::vector<int> twoPossible(2);
@@ -73,6 +73,36 @@ std::vector<int> myBinarySearch(std::vector<int>& arr, int length, int target) {
     return twoPossible;
 }
 
+void getTheme(const std::vector<int>& teams, const std::vector<int>& themes){
+    for(int team : teams) {
+        std::vector<int> twoPossible = myBinarySearch(themes, themes.size(), team);
+        //this is if we are found already the theme
+        if(twoPossible[1] == -100){
+            std::cout << twoPossible[0] << std::endl;
+            continue;
+        }
+        //this is if the theme is first
+        if(twoPossible[0] == team){
+            std::cout << twoPossible[0] << std::endl;
+            continue;
+        }
+        //this is if the theme is second
+        if(twoPossible[1] == team){
+            std::cout << twoPossible[1] << std::endl;
+            continue;
+        }
+        //get the better theme
+        if((twoPossible[1] - team) >= (team - twoPossible[0])){
+            std::cout << twoPossible[0] << std::endl;
+            continue;
+        }
+        else {
+            std::cout << twoPossible[1] << std::endl;
+            continue;
+        }
+    }
+}
+
 int main() {
     int teamsSize = 0;
     int themesSize = 0;
@@ -92,32 +122,5 @@ int main() {
     }
 
     mergeSort(themes, themesSize);//sort the themes
-
-    for(int i = 0; i < teamsSize; ++i) {
-        std::vector<int> twoPossible = myBinarySearch(themes, themesSize, teams[i]);
-        //this is if we are found already the theme
-        if(twoPossible[1] == -100){
-            std::cout << twoPossible[0] << std::endl;
-            continue;
-        }
-        //this is if the theme is first
-        if(twoPossible[0] == teams[i]){
-            std::cout << twoPossible[0] << std::endl;
-            continue;
-        }
-        //this is if the theme is second
-        if(twoPossible[1] == teams[i]){
-            std::cout << twoPossible[1] << std::endl;
-            continue;
-        }
-        //get the better theme
-        if((twoPossible[1] - teams[i]) >= (teams[i] - twoPossible[0])){
-            std::cout << twoPossible[0] << std::endl;
-            continue;
-        }
-        else {
-            std::cout << twoPossible[1] << std::endl;
-            continue;
-        }
-    }
+    getTheme(teams,themes);//get themes
 }
