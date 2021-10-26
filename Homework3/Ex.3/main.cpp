@@ -1,18 +1,6 @@
 #include <iostream>
 #include <vector>
 
-bool Compare(std::pair<int,int>& a, std::pair<int,int>& b) {
-    if(a.first < b.first) {
-        return true;
-    }
-    else if(a.first == b.first && a.second < b.second) {
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
 void merge(std::vector<std::pair<int,int>>& arr,
            std::vector<std::pair<int,int>>& mergeArr, int start, int mid, int end) {
     int left = start;
@@ -21,7 +9,7 @@ void merge(std::vector<std::pair<int,int>>& arr,
     //sort the elements
     for(int i = start; i <= end; ++i) {
         //this is when the left element is smaller
-        if(left <= mid && (right > end || Compare(arr[left],arr[right]))) {
+        if(left <= mid && (right > end || arr[left] < arr[right])) {
             mergeArr[i] = arr[left];
             ++left;
         }
@@ -83,26 +71,6 @@ void killDemon(std::vector<std::pair<int,int>> const& demons) {
     }
     std::cout << result;
 }
-
-/*void killDemon(std::vector<std::pair<int,int>> const& demons) {
-    const int INF = 1e9;
-    std::vector<int> d(demons.size()+1, INF);
-    d[0] = -INF;
-
-    for (int i = 0; i < demons.size(); i++) {
-        for (int j = 1; j <= demons.size(); j++) {
-            if (d[j-1] < demons[i] && demons[i] < d[j])
-            d[j] = demons[i];
-        }
-    }
-
-    int result = 0;
-    for (int i = 0; i <= demons.size(); i++) {
-        if (d[i] < INF)
-            result = i;
-    }
-    std::cout << result;
-}*/
 
 int main() {
     std::ios_base::sync_with_stdio(false);
