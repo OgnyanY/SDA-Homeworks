@@ -93,7 +93,9 @@ SinglyLinkedListNode* deleteNode(SinglyLinkedListNode* llist, int position) {
         move = move->next;
     }
     //remove the element
-    move->next = move->next->next;
+    SinglyLinkedListNode* next = move->next->next;
+    delete move->next;
+    move->next = next;
 
     return llist;
 }
