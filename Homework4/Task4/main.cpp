@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-using namespace std;
+
 
 class Node {
 public:
@@ -111,7 +111,7 @@ int main() {
     auto* list = new DoublyLinkedList();
     //all commands
     int commands;
-    cin >> commands;
+    std::cin >> commands;
 
     int command = 1;
     int adds = 0;//elements in the list
