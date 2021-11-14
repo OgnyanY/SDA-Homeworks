@@ -67,7 +67,6 @@ public:
 int main (){
     int ballsCount;
     std::cin >> ballsCount;
-
     // Filling the list with the first elements
     auto* list = new DoublyLinkedList();
     int color;
