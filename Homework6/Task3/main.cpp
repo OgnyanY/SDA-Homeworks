@@ -3,8 +3,7 @@
 #include <algorithm>
 #include <vector>
 
-struct Node
-{
+struct Node {
     int value;
     Node *left;
     Node *right;
@@ -138,7 +137,7 @@ int main() {
     //sort the elements in the vector
     //end remove element with wanted value
     sort(sortNum.begin(), sortNum.end(),
-         [](int right, int left) {
+         [](int& right, int& left) {
              return right > left;
          }
     );
