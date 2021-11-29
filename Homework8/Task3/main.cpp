@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #include <queue>
 #include <vector>
-using namespace std;
 
 //struct for student
 struct Student {
@@ -15,11 +14,11 @@ struct Student {
 };
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
 
     int studentsSize = 0;
-    cin >> studentsSize;
+    std::cin >> studentsSize;
 
     std::pair<long, long> answer(0,0);//variable to find the answer
 
@@ -37,7 +36,7 @@ int main() {
 
     for (int i = 0; i < studentsSize; ++i) {
         long finish = 0, code = 0;
-        cin >> finish >> code;
+        std::cin >> finish >> code;
         Student student(finish, code);
         finishSorted.push(student);
     }
@@ -81,6 +80,6 @@ int main() {
             continue;
         }
     }
-    cout << answer.first / answer.second;
+    std::cout << answer.first / answer.second;
     return 0;
 }
