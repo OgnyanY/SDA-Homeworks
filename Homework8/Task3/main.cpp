@@ -4,10 +4,10 @@
 
 //struct for student
 struct Student {
-    long finish = 0;//finish time
-    long code = 0;//code lines
+    long long finish = 0;//finish time
+    long long code = 0;//code lines
 
-    Student(long finish = 0, long code = 0) {
+    Student(long long finish = 0, long long code = 0) {
         this->finish = finish;
         this->code = code;
     }
@@ -20,7 +20,7 @@ int main() {
     int studentsSize = 0;
     std::cin >> studentsSize;
 
-    std::pair<long, long> answer(0,0);//variable to find the answer
+    std::pair<long long, long long> answer(0, 0);//variable to find the answer
 
     //compare function for finish time
     auto fCmp = [](Student &a, Student &b) {
@@ -35,7 +35,7 @@ int main() {
     std::priority_queue<Student, std::vector<Student>, decltype(cCmp)> codeSorted(cCmp);
 
     for (int i = 0; i < studentsSize; ++i) {
-        long finish = 0, code = 0;
+        long long finish = 0, code = 0;
         std::cin >> finish >> code;
         Student student(finish, code);
         finishSorted.push(student);
@@ -45,7 +45,7 @@ int main() {
     answer.first += finishSorted.top().code;
     ++answer.second;
     //time passed at all
-    long currentTime = finishSorted.top().finish + finishSorted.top().code;
+    long long currentTime = finishSorted.top().finish + finishSorted.top().code;
     finishSorted.pop();
 
     while (true) {
@@ -55,18 +55,18 @@ int main() {
                 codeSorted.push(finishSorted.top());//sort student by code
                 finishSorted.pop();
             }
-            //if there isn`t student finished the exam
+                //if there isn`t student finished the exam
             else if (!finishSorted.empty() && codeSorted.empty() && finishSorted.top().finish > currentTime) {
                 codeSorted.push(finishSorted.top());
                 currentTime = finishSorted.top().finish;
                 finishSorted.pop();
-            }else{
+            } else {
                 break;
             }
         }
 
         //check tests until there is no other student finished the exam
-        while((finishSorted.empty() || currentTime < finishSorted.top().finish) && (!codeSorted.empty())){
+        while ((finishSorted.empty() || currentTime < finishSorted.top().finish) && (!codeSorted.empty())) {
             answer.first += currentTime - codeSorted.top().finish + codeSorted.top().code;
             ++answer.second;
             currentTime += codeSorted.top().code;
@@ -74,9 +74,9 @@ int main() {
         }
 
         //there is no more students
-        if(finishSorted.empty() && codeSorted.empty()){
+        if (finishSorted.empty() && codeSorted.empty()) {
             break;
-        }else{
+        } else {
             continue;
         }
     }
