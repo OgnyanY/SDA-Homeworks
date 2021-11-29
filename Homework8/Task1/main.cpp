@@ -51,14 +51,14 @@ int main() {
             smallWealthCitizens.push(bigWealthCitizens.top());
             bigWealthCitizens.pop();
         }
-        
+
         //if the size of the citizens are odd
         //print the middle citizen as median
         if (smallWealthCitizens.size() > bigWealthCitizens.size()) {
             printf("%.1f\n", smallWealthCitizens.top());
         }
-        //if the size of the citizens are even,
-        //calculate the median and print it
+            //if the size of the citizens are even,
+            //calculate the median and print it
         else {
             printf("%.1f\n", ((smallWealthCitizens.top() + bigWealthCitizens.top()) / 2));
         }
