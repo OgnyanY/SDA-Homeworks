@@ -13,6 +13,16 @@ struct Student {
     }
 };
 
+//compare function for finish time
+auto fCmp = [](Student &a, Student &b) {
+    return a.finish > b.finish;
+};
+
+//compare function for code lines
+auto cCmp = [](Student &a, Student &b) {
+    return a.code > b.code;
+};
+
 int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(nullptr);
@@ -21,15 +31,6 @@ int main() {
     std::cin >> studentsSize;
 
     std::pair<long long, long long> answer(0, 0);//variable to find the answer
-
-    //compare function for finish time
-    auto fCmp = [](Student &a, Student &b) {
-        return a.finish > b.finish;
-    };
-    //compare function for code lines
-    auto cCmp = [](Student &a, Student &b) {
-        return a.code > b.code;
-    };
 
     std::priority_queue<Student, std::vector<Student>, decltype(fCmp)> finishSorted(fCmp);
     std::priority_queue<Student, std::vector<Student>, decltype(cCmp)> codeSorted(cCmp);
