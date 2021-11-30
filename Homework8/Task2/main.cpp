@@ -2,82 +2,92 @@
 #include <queue>
 #include <vector>
 
-using namespace std;
-
+//struct for task
 struct Task {
-    long start = 0;
-    long time = 0;
-    long index = 0;
+    long long start = 0;//start time
+    long long time = 0;//duration time
+    long long index = 0;
 
-    Task(long start = 0, long time = 0, long index = 0) {
+    Task(long long start = 0, long long time = 0, long long index = 0) {
         this->start = start;
         this->time = time;
         this->index = index;
     }
 };
 
+//compare function for start time
+auto sCmp = [](Task &a, Task &b) {
+    return a.start > b.start;
+};
+
+//compare function for duration time
+auto tCmp = [](Task &a, Task &b) {
+    if (a.time > b.time) {
+        return true;
+    } else if (a.time == b.time) {
+        if (a.index > b.index) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
+};
+
 int main() {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout << std::fixed << std::setprecision(1);
 
-    /*
-     5
-2 1
-1 5
- 3 3
-2 4
-7 1
-*/
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout << fixed << setprecision(1);
+    long long tasksSize = 0;
+    std::cin >> tasksSize;
 
-    int tasksSize = 0;
-    cin >> tasksSize;
-
-    auto sCmp = [](Task &a, Task &b) {
-        return a.start > b.start;
-    };
-    auto tCmp = [](Task &a, Task &b) {
-        return a.time > b.time;
-    };
     std::priority_queue<Task, std::vector<Task>, decltype(sCmp)> startSort(sCmp);
     std::priority_queue<Task, std::vector<Task>, decltype(tCmp)> timeSort(tCmp);
 
-    for (int i = 0; i < tasksSize; ++i) {
-        long start = 0, time = 0;
-        cin >> start >> time;
+    for (long long i = 0; i < tasksSize; ++i) {
+        long long start = 0, time = 0;
+        std::cin >> start >> time;
         Task task(start, time, i);
         startSort.push(task);
     }
-    cout << startSort.top().index << ' ';
-    long time = startSort.top().start + startSort.top().time;
+
+    //print the index on first finished task
+    std::cout << startSort.top().index << ' ';
+    //time passed at all
+    long long currentTime = startSort.top().start + startSort.top().time;
     startSort.pop();
 
     while (true) {
         while (true) {
-            if (!startSort.empty() && startSort.top().start <= time) {
+            //if there is task to finish
+            if (!startSort.empty() && startSort.top().start <= currentTime) {
                 timeSort.push(startSort.top());
                 startSort.pop();
-            }else if (!startSort.empty() && timeSort.empty() && startSort.top().start > time) {
+            }
+                //if there isn`t task to finish yet, get the next possible task to finish
+            else if (!startSort.empty() && timeSort.empty() && startSort.top().start > currentTime) {
                 timeSort.push(startSort.top());
-                time = startSort.top().start;
+                currentTime = startSort.top().start;
                 startSort.pop();
-            }else{
+            } else {
                 break;
             }
         }
 
-        while((startSort.empty() || time < startSort.top().start) && (!timeSort.empty())){
-            cout << timeSort.top().index << ' ';
-            time += timeSort.top().time;
+        //check tasks until there is new possible task to finish
+        while ((startSort.empty() || currentTime < startSort.top().start) && (!timeSort.empty())) {
+            std::cout << timeSort.top().index << ' ';
+            currentTime += timeSort.top().time;
             timeSort.pop();
         }
 
-        if(startSort.empty() && timeSort.empty()){
+        //if there is no more tasks
+        if (startSort.empty() && timeSort.empty()) {
             break;
-        }else{
+        } else {
             continue;
         }
     }
-
     return 0;
 }
