@@ -25,10 +25,11 @@ void shortestPath(int begin, int paths, int final) {
     for (int i = 0; i < paths; ++i) {
         int start = 0, end = 0, weight = 0;
         std::cin >> start >> end >> weight;
-        graph[start].push_back({end, weight});
+        Node node(end, weight);
+        graph[start].push_back(node);
     }
 
-    //set with visited nodes
+    //unordered_set with visited nodes
     std::unordered_set<int> visited;
     //unordered_map withs nodes, their distance and how much we found that distance
     std::unordered_map<int, std::pair<long long, int>> dist;
@@ -61,7 +62,7 @@ void shortestPath(int begin, int paths, int final) {
             int child = edge.end;
             long long weight = edge.weight;
             //if the distance of the node is bigger than current,
-            //new distance is current
+            //the new distance is current
             if (dist[child].first > dist[current.end].first + weight) {
                 dist[child].first = dist[current.end].first + weight;
                 dist[child].second = (dist[current.end].second) % 1000000007;
